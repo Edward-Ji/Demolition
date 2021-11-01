@@ -7,7 +7,7 @@ public abstract class AnimatedGameObject extends GameObject {
 
     private static final int FRAME_INTERVAL = (int) (0.2 * App.FPS);
 
-    protected Direction direction = Direction.DOWN;
+    private Direction direction = Direction.DOWN;
     private List<List<PImage>> sprites;
     private int frameCount;
 
@@ -26,6 +26,10 @@ public abstract class AnimatedGameObject extends GameObject {
     public AnimatedGameObject(App app, List<List<PImage>> sprites, int gridX, int gridY, Layer layer) {
         this(app, (PImage) null, gridX, gridY, layer);
         this.sprites = sprites;
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     private void updateSprite() {

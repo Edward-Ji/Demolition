@@ -17,7 +17,7 @@ public class Enemy extends AnimatedGameObject {
     public void update() {
         if (moveFrameCount == moveInterval) {
             while (movementBlocked()) {
-                turn(direction.next());
+                turn(getDirection().next());
             }
             move();
             moveFrameCount = 0;
