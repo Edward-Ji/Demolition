@@ -59,7 +59,7 @@ public abstract class AnimatedGameObject extends GameObject {
             return true;
         }
 
-        for (GameObject gameObject : GameObject.atPos(app.allGameObjects, newGridX, newGridY)) {
+        for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
             if (gameObject.blocksMovement()) {
                 return true;
             }

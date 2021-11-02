@@ -1,7 +1,7 @@
 package demolition;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import processing.core.PImage;
 
@@ -12,6 +12,10 @@ public class GameObject {
         DEFAULT, // Enemy, Bomb
         FOREGROUND; // Player, Explosion
     }
+
+    private static List<GameObject> allGameObjects = new LinkedList<>();
+    private static List<GameObject> addGameObjects = new LinkedList<>();
+    private static List<GameObject> delGameObjects = new LinkedList<>();
 
     protected App app;
 
@@ -32,11 +36,11 @@ public class GameObject {
         this.gridX = gridX;
         this.gridY = gridY;
         this.layer = layer;
-        app.add(this);
+        addGameObjects.add(this);
     }
 
     public void destroy() {
-        app.destroy(this);
+        delGameObjects.add(this);
     }
 
     public boolean blocksMovement() {
@@ -65,10 +69,17 @@ public class GameObject {
         return gridY * App.GRID_SIZE + App.UI_HEIGHT - (sprite.height - App.GRID_SIZE);
     }
 
-    public static void updateAll(List<GameObject> allGameObjects) {
+    public static void clearAll() {
+        allGameObjects.clear();
+        addGameObjects.clear();
+        delGameObjects.clear();
+    }
+
+    public static void updateAll() {
+        // Collision logic
         for (int gridX = 0; gridX < App.GRID_WIDTH; gridX++) {
             for (int gridY = 0; gridY < App.GRID_HEIGHT; gridY++) {
-                List<GameObject> collidedGameObjects = atPos(allGameObjects, gridX, gridY);
+                List<GameObject> collidedGameObjects = atPos(gridX, gridY);
                 for (GameObject gameObject : collidedGameObjects) {
                     for (GameObject otherGameObject : collidedGameObjects) {
                         if (gameObject != otherGameObject) {
@@ -78,21 +89,29 @@ public class GameObject {
                 }
             }
         }
+
+        // Call each object's update
         for (GameObject gameObject : allGameObjects) {
             gameObject.update();
         }
+
+        // Maintain game object list
+        allGameObjects.addAll(addGameObjects);
+        addGameObjects.clear();
+        allGameObjects.removeAll(delGameObjects);
+        delGameObjects.clear();
     }
 
-    public static void drawAll(List<GameObject> allGameObjects) {
-        List<GameObject> sortedGameObjects = new ArrayList<>(allGameObjects);
+    public static void drawAll() {
+        List<GameObject> sortedGameObjects = new LinkedList<>(allGameObjects);
         sortedGameObjects.sort(Comparator.<GameObject>comparingInt(obj -> obj.gridY).thenComparing(obj -> obj.layer));
         for (GameObject gameObject : sortedGameObjects) {
             gameObject.draw();
         }
     }
 
-    public static List<GameObject> atPos(List<GameObject> allGameObjects, int gridX, int gridY) {
-        List<GameObject> gameObjects = new ArrayList<>();
+    public static List<GameObject> atPos(int gridX, int gridY) {
+        List<GameObject> gameObjects = new LinkedList<>();
         for (GameObject gameObject : allGameObjects) {
             if (gameObject.gridX == gridX && gameObject.gridY == gridY) {
                 gameObjects.add(gameObject);

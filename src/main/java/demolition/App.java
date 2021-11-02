@@ -44,11 +44,6 @@ public class App extends PApplet {
     private int levelCount;
     private int frameLeft;
 
-    // Game object management
-    public List<GameObject> allGameObjects = new ArrayList<>();
-    private List<GameObject> toAdd = new ArrayList<>();
-    private List<GameObject> toDestory = new ArrayList<>();
-
     public Player player;
 
     public void settings() {
@@ -107,7 +102,7 @@ public class App extends PApplet {
             return;
         }
 
-        allGameObjects.clear();
+        GameObject.clearAll();
 
         JSONObject levelObject = (JSONObject) levelArray.getJSONObject(levelCount);
         String levelPath = levelObject.getString("path");
@@ -158,17 +153,12 @@ public class App extends PApplet {
             gameOverScreen("GAME OVER");
             return;
         }
-        GameObject.updateAll(allGameObjects);
-
-        allGameObjects.addAll(toAdd);
-        toAdd.clear();
-        allGameObjects.removeAll(toDestory);
-        toDestory.clear();
+        GameObject.updateAll();
 
         background(254, 134, 0);
         drawUI();
         drawField();
-        GameObject.drawAll(allGameObjects);
+        GameObject.drawAll();
 
         frameLeft--;
     }
@@ -192,14 +182,6 @@ public class App extends PApplet {
                 image(staticSprites.get("field"), x, y);
             }
         }
-    }
-
-    public void add(GameObject gameObject) {
-        toAdd.add(gameObject);
-    }
-
-    public void destroy(GameObject gameObject) {
-        toDestory.add(gameObject);
     }
 
     public void nextLevel() {

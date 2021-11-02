@@ -22,6 +22,10 @@ public class Bomb extends AnimatedGameObject {
     @Override
     public void destroy() {
         super.destroy();
+        detonate();
+    }
+
+    public void detonate() {
         new Explosion(app, app.staticSprites.get("explosion_centre"), gridX, gridY);
         direction: for (Direction direction : Direction.values()) {
             PImage sprite;
@@ -33,13 +37,13 @@ public class Bomb extends AnimatedGameObject {
             for (int dist = 1; dist <= BLAST_DISTANCE; dist++) {
                 int newGridX = gridX + direction.getDeltaX() * dist;
                 int newGridY = gridY + direction.getDeltaY() * dist;
-                for (GameObject gameObject : GameObject.atPos(app.allGameObjects, newGridX, newGridY)) {
+                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
                     if (!gameObject.isBreakable()) {
                         continue direction;
                     }
                 }
                 new Explosion(app, sprite, newGridX, newGridY);
-                for (GameObject gameObject : GameObject.atPos(app.allGameObjects, newGridX, newGridY)) {
+                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
                     if (gameObject.blocksMovement()) {
                         continue direction;
                     }
