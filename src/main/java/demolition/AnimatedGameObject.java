@@ -7,8 +7,8 @@ public abstract class AnimatedGameObject extends GameObject {
 
     private Direction direction = Direction.DOWN;
     private List<List<PImage>> sprites;
-    private int frameCount;
     private int frameInterval = (int) (0.2 * App.FPS);
+    private int frameCount;
 
     private AnimatedGameObject(App app, PImage sprite, int gridX, int gridY) {
         super(app, sprite, gridX, gridY);

@@ -30,8 +30,8 @@ public class App extends PApplet {
     private static final String fontPath = resourcePath + "PressStart2P-Regular.ttf";
 
     // Resources hash map
-    private HashMap<String, PImage> staticSprites = new HashMap<>();
-    private HashMap<String, List<List<PImage>>> animatedSprites = new HashMap<>();
+    public HashMap<String, PImage> staticSprites = new HashMap<>();
+    public HashMap<String, List<List<PImage>>> animatedSprites = new HashMap<>();
 
     // Path to configuration file
     private static final String configPath = "config.json";
@@ -46,6 +46,7 @@ public class App extends PApplet {
 
     // Game object management
     public List<GameObject> allGameObjects = new ArrayList<>();
+    private List<GameObject> toAdd = new ArrayList<>();
     private List<GameObject> toDestory = new ArrayList<>();
 
     public Player player;
@@ -121,7 +122,7 @@ public class App extends PApplet {
                     GameObject gameObject = null;
                     switch (c) {
                     case 'B':
-                        gameObject = new Wall(this, staticSprites.get("broken_wall"), gridX, gridY);
+                        gameObject = Wall.brokenWall(this, gridX, gridY);
                         break;
                     case 'G':
                         gameObject = new Goal(this, staticSprites.get("goal"), gridX, gridY);
@@ -134,7 +135,7 @@ public class App extends PApplet {
                         gameObject = new Enemy(this, animatedSprites.get("red_enemy"), gridX, gridY);
                         break;
                     case 'W':
-                        gameObject = new Wall(this, staticSprites.get("solid_wall"), gridX, gridY);
+                        gameObject = Wall.solidWall(this, gridX, gridY);
                         break;
                     case 'Y':
                         gameObject = new Enemy(this, animatedSprites.get("yellow_enemy"), gridX, gridY);
@@ -158,9 +159,10 @@ public class App extends PApplet {
             return;
         }
         GameObject.updateAll(allGameObjects);
-        for (GameObject gameObject : toDestory) {
-            allGameObjects.remove(gameObject);
-        }
+
+        allGameObjects.addAll(toAdd);
+        toAdd.clear();
+        allGameObjects.removeAll(toDestory);
         toDestory.clear();
 
         background(254, 134, 0);
@@ -192,6 +194,10 @@ public class App extends PApplet {
         }
     }
 
+    public void add(GameObject gameObject) {
+        toAdd.add(gameObject);
+    }
+
     public void destroy(GameObject gameObject) {
         toDestory.add(gameObject);
     }
@@ -210,20 +216,16 @@ public class App extends PApplet {
         if (key == CODED) {
             switch (keyCode) {
             case LEFT:
-                player.turn(Direction.LEFT);
-                player.move();
+                player.control(Direction.LEFT);
                 break;
             case RIGHT:
-                player.turn(Direction.RIGHT);
-                player.move();
+                player.control(Direction.RIGHT);
                 break;
             case UP:
-                player.turn(Direction.UP);
-                player.move();
+                player.control(Direction.UP);
                 break;
             case DOWN:
-                player.turn(Direction.DOWN);
-                player.move();
+                player.control(Direction.DOWN);
                 break;
             }
         } else if (key == ' ') {

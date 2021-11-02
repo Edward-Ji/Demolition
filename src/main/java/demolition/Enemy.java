@@ -14,6 +14,11 @@ public class Enemy extends AnimatedGameObject {
     }
 
     @Override
+    public boolean isBreakable() {
+        return true;
+    }
+
+    @Override
     public void update() {
         if (moveFrameCount == moveInterval) {
             while (movementBlocked()) {
@@ -28,7 +33,7 @@ public class Enemy extends AnimatedGameObject {
 
     @Override
     public void onCollide(GameObject other) {
-        if (other == app.player) {
+        if (other instanceof Player) {
             app.loseOneLife();
         }
     }

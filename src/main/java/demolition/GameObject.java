@@ -32,7 +32,7 @@ public class GameObject {
         this.gridX = gridX;
         this.gridY = gridY;
         this.layer = layer;
-        app.allGameObjects.add(this);
+        app.add(this);
     }
 
     public void destroy() {
@@ -40,6 +40,10 @@ public class GameObject {
     }
 
     public boolean blocksMovement() {
+        return false;
+    }
+
+    public boolean isBreakable() {
         return false;
     }
 

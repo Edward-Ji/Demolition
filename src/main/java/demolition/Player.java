@@ -12,8 +12,21 @@ public class Player extends AnimatedGameObject {
     }
 
     @Override
-    public void update() {
+    public boolean isBreakable() {
+        return true;
+    }
 
+    @Override
+    public void destroy() {
+        app.loseOneLife();
+    }
+
+    public void control(Direction newDirection) {
+        Direction oldDirection = getDirection();
+        turn(newDirection);
+        if (!move()) {
+            turn(oldDirection);
+        }
     }
 
 }
