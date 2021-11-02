@@ -1,6 +1,5 @@
 package demolition;
 
-import java.util.List;
 import processing.core.PImage;
 
 public class Bomb extends AnimatedGameObject {
@@ -9,8 +8,8 @@ public class Bomb extends AnimatedGameObject {
 
     private int countdown = 2 * App.FPS;
 
-    public Bomb(App app, List<List<PImage>> sprites, int gridX, int gridY) {
-        super(app, sprites, gridX, gridY);
+    public Bomb(App app, int gridX, int gridY) {
+        super(app, app.getLoader().getAnimatedSprite("bomb"), gridX, gridY);
         setFrameInterval((int) (0.25 * App.FPS));
     }
 
@@ -26,13 +25,13 @@ public class Bomb extends AnimatedGameObject {
     }
 
     public void detonate() {
-        new Explosion(app, app.staticSprites.get("explosion_centre"), gridX, gridY);
+        new Explosion(app, app.getLoader().getStaticSprite("explosion_centre"), gridX, gridY);
         direction: for (Direction direction : Direction.values()) {
             PImage sprite;
             if (direction.getDeltaX() == 0) {
-                sprite = app.staticSprites.get("explosion_vertical");
+                sprite = app.getLoader().getStaticSprite("explosion_vertical");
             } else {
-                sprite = app.staticSprites.get("explosion_horizontal");
+                sprite = app.getLoader().getStaticSprite("explosion_horizontal");
             }
             for (int dist = 1; dist <= BLAST_DISTANCE; dist++) {
                 int newGridX = gridX + direction.getDeltaX() * dist;

@@ -38,4 +38,11 @@ public class Enemy extends AnimatedGameObject {
         }
     }
 
+    public static Enemy redEnemy(App app, int gridX, int gridY) {
+        return new Enemy(app, app.getLoader().getAnimatedSprite("red_enemy"), gridX, gridY);
+    }
+
+    public static Enemy yellowEnemy(App app, int gridX, int gridY) {
+        return new Enemy(app, app.getLoader().getAnimatedSprite("yellow_enemy"), gridX, gridY);
+    }
 }

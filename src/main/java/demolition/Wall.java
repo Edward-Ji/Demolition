@@ -18,7 +18,7 @@ public class Wall extends GameObject {
     }
 
     public static Wall brokenWall(App app, int gridX, int gridY) {
-        return new Wall(app, app.staticSprites.get("broken_wall"), gridX, gridY) {
+        return new Wall(app, app.getLoader().getStaticSprite("broken_wall"), gridX, gridY) {
             @Override
             public boolean isBreakable() {
                 return true;
@@ -27,7 +27,7 @@ public class Wall extends GameObject {
     }
 
     public static Wall solidWall(App app, int gridX, int gridY) {
-        return new Wall(app, app.staticSprites.get("solid_wall"), gridX, gridY);
+        return new Wall(app, app.getLoader().getStaticSprite("solid_wall"), gridX, gridY);
     }
 
 }

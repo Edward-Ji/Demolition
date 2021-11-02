@@ -1,11 +1,9 @@
 package demolition;
 
-import processing.core.PImage;
-
 public class Goal extends GameObject {
 
-    public Goal(App app, PImage sprite, int gridX, int gridY) {
-        super(app, sprite, gridX, gridY, Layer.BACKGROUND);
+    public Goal(App app, int gridX, int gridY) {
+        super(app, app.getLoader().getStaticSprite("goal"), gridX, gridY, Layer.BACKGROUND);
     }
 
     @Override
