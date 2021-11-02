@@ -1,7 +1,6 @@
 package demolition;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import java.util.Comparator;
 import java.util.List;
 import processing.core.PImage;
@@ -10,8 +9,8 @@ public class GameObject {
 
     public static enum Layer {
         BACKGROUND, // Wall, Goal
-        DEFAULT, // Player, Enemy, Bomb
-        FOREGROUND; // Explosion
+        DEFAULT, // Enemy, Bomb
+        FOREGROUND; // Player, Explosion
     }
 
     protected App app;
@@ -23,8 +22,6 @@ public class GameObject {
 
     private Layer layer;
 
-    private List<GameObject> collidedLastFrame = new ArrayList<>();
-
     public GameObject(App app, PImage sprite, int gridX, int gridY) {
         this(app, sprite, gridX, gridY, Layer.DEFAULT);
     }
@@ -35,6 +32,11 @@ public class GameObject {
         this.gridX = gridX;
         this.gridY = gridY;
         this.layer = layer;
+        app.allGameObjects.add(this);
+    }
+
+    public void destroy() {
+        app.destroy(this);
     }
 
     public boolean blocksMovement() {
@@ -44,16 +46,7 @@ public class GameObject {
     protected void update() {
     }
 
-    private void onCollide(List<GameObject> others) {
-        for (GameObject other : others) {
-            if (!collidedLastFrame.contains(other)) {
-                onCollideTrigger(other);
-            }
-        }
-        collidedLastFrame = others;
-    }
-
-    protected void onCollideTrigger(GameObject other) {
+    protected void onCollide(GameObject other) {
     }
 
     protected void draw() {
@@ -73,8 +66,11 @@ public class GameObject {
             for (int gridY = 0; gridY < App.GRID_HEIGHT; gridY++) {
                 List<GameObject> collidedGameObjects = atPos(allGameObjects, gridX, gridY);
                 for (GameObject gameObject : collidedGameObjects) {
-                    gameObject.onCollide(
-                            collidedGameObjects.stream().filter(obj -> obj != gameObject).collect(Collectors.toList()));
+                    for (GameObject otherGameObject : collidedGameObjects) {
+                        if (gameObject != otherGameObject) {
+                            gameObject.onCollide(otherGameObject);
+                        }
+                    }
                 }
             }
         }
@@ -85,7 +81,7 @@ public class GameObject {
 
     public static void drawAll(List<GameObject> allGameObjects) {
         List<GameObject> sortedGameObjects = new ArrayList<>(allGameObjects);
-        sortedGameObjects.sort(Comparator.comparing(obj -> obj.layer));
+        sortedGameObjects.sort(Comparator.<GameObject>comparingInt(obj -> obj.gridY).thenComparing(obj -> obj.layer));
         for (GameObject gameObject : sortedGameObjects) {
             gameObject.draw();
         }

@@ -29,12 +29,14 @@ public class App extends PApplet {
     private static final String resourcePath = "src/main/resources/";
     private static final String fontPath = resourcePath + "PressStart2P-Regular.ttf";
 
+    // Resources hash map
     private HashMap<String, PImage> staticSprites = new HashMap<>();
     private HashMap<String, List<List<PImage>>> animatedSprites = new HashMap<>();
 
     // Path to configuration file
     private static final String configPath = "config.json";
 
+    // Configuration object
     private JSONObject config;
 
     // Game attributes
@@ -42,7 +44,9 @@ public class App extends PApplet {
     private int levelCount;
     private int frameLeft;
 
-    public ArrayList<GameObject> allGameObjects = new ArrayList<>();
+    // Game object management
+    public List<GameObject> allGameObjects = new ArrayList<>();
+    private List<GameObject> toDestory = new ArrayList<>();
 
     public Player player;
 
@@ -99,6 +103,7 @@ public class App extends PApplet {
         if (levelCount >= levelArray.size()) {
             // Win condition met
             gameOverScreen("YOU WIN");
+            return;
         }
 
         allGameObjects.clear();
@@ -135,9 +140,6 @@ public class App extends PApplet {
                         gameObject = new Enemy(this, animatedSprites.get("yellow_enemy"), gridX, gridY);
                         break;
                     }
-                    if (gameObject != null) {
-                        allGameObjects.add(gameObject);
-                    }
                     gridX++;
                 }
                 gridX = 0;
@@ -156,6 +158,10 @@ public class App extends PApplet {
             return;
         }
         GameObject.updateAll(allGameObjects);
+        for (GameObject gameObject : toDestory) {
+            allGameObjects.remove(gameObject);
+        }
+        toDestory.clear();
 
         background(254, 134, 0);
         drawUI();
@@ -186,6 +192,10 @@ public class App extends PApplet {
         }
     }
 
+    public void destroy(GameObject gameObject) {
+        toDestory.add(gameObject);
+    }
+
     public void nextLevel() {
         levelCount++;
         loadLevel();
@@ -193,26 +203,31 @@ public class App extends PApplet {
 
     public void loseOneLife() {
         lives--;
+        loadLevel();
     }
 
     public void keyPressed() {
-        switch (keyCode) {
-        case LEFT:
-            player.turn(Direction.LEFT);
-            player.move();
-            break;
-        case RIGHT:
-            player.turn(Direction.RIGHT);
-            player.move();
-            break;
-        case UP:
-            player.turn(Direction.UP);
-            player.move();
-            break;
-        case DOWN:
-            player.turn(Direction.DOWN);
-            player.move();
-            break;
+        if (key == CODED) {
+            switch (keyCode) {
+            case LEFT:
+                player.turn(Direction.LEFT);
+                player.move();
+                break;
+            case RIGHT:
+                player.turn(Direction.RIGHT);
+                player.move();
+                break;
+            case UP:
+                player.turn(Direction.UP);
+                player.move();
+                break;
+            case DOWN:
+                player.turn(Direction.DOWN);
+                player.move();
+                break;
+            }
+        } else if (key == ' ') {
+            new Bomb(this, animatedSprites.get("bomb"), player.gridX, player.gridY);
         }
     }
 

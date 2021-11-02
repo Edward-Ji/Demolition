@@ -5,11 +5,10 @@ import processing.core.PImage;
 
 public abstract class AnimatedGameObject extends GameObject {
 
-    private static final int FRAME_INTERVAL = (int) (0.2 * App.FPS);
-
     private Direction direction = Direction.DOWN;
     private List<List<PImage>> sprites;
     private int frameCount;
+    private int frameInterval = (int) (0.2 * App.FPS);
 
     private AnimatedGameObject(App app, PImage sprite, int gridX, int gridY) {
         super(app, sprite, gridX, gridY);
@@ -32,10 +31,14 @@ public abstract class AnimatedGameObject extends GameObject {
         return direction;
     }
 
+    protected void setFrameInterval(int value) {
+        frameInterval = value;
+    }
+
     private void updateSprite() {
         List<PImage> directionSprites = sprites.get(direction.getAlphabetOrder());
-        sprite = directionSprites.get(frameCount / FRAME_INTERVAL);
-        frameCount = (frameCount + 1) % (directionSprites.size() * FRAME_INTERVAL);
+        sprite = directionSprites.get(frameCount / frameInterval);
+        frameCount = (frameCount + 1) % (directionSprites.size() * frameInterval);
     }
 
     @Override
@@ -45,8 +48,6 @@ public abstract class AnimatedGameObject extends GameObject {
     }
 
     protected void turn(Direction newDirection) {
-        System.out.print(newDirection.ordinal());
-        System.out.println(newDirection);
         direction = newDirection;
     }
 

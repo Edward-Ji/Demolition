@@ -27,7 +27,7 @@ public class Enemy extends AnimatedGameObject {
     }
 
     @Override
-    public void onCollideTrigger(GameObject other) {
+    public void onCollide(GameObject other) {
         if (other == app.player) {
             app.loseOneLife();
         }
