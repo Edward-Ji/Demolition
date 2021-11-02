@@ -52,11 +52,6 @@ public class App extends PApplet {
     }
 
     public void draw() {
-        if (frameLeft == 0 || lives == 0) {
-            System.out.println("lost");
-            screen = Screen.LOST;
-        }
-
         background(254, 134, 0);
         switch (screen) {
         case GAME:
@@ -73,6 +68,10 @@ public class App extends PApplet {
     }
 
     private void gameScreen() {
+        if (frameLeft == 0 || lives == 0) {
+            screen = Screen.LOST;
+        }
+
         GameObject.updateAll();
         drawUI();
         drawField();
@@ -105,7 +104,7 @@ public class App extends PApplet {
         if (levelCount < loader.getMaxLevel()) {
             frameLeft = loader.loadLevel(levelCount) * FPS;
         } else {
-
+            screen = Screen.WIN;
         }
     }
 
