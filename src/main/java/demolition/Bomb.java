@@ -14,11 +14,6 @@ public class Bomb extends AnimatedGameObject {
     }
 
     @Override
-    public boolean blocksMovement() {
-        return true;
-    }
-
-    @Override
     public void destroy() {
         super.destroy();
         detonate();

@@ -27,6 +27,11 @@ public class Player extends AnimatedGameObject {
     }
 
     public void placeBomb() {
+        for (GameObject gameObject : GameObject.atPos(gridX, gridY)) {
+            if (gameObject instanceof Bomb) {
+                return;
+            }
+        }
         new Bomb(app, gridX, gridY);
     }
 
