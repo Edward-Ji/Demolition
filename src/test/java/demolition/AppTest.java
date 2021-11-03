@@ -81,8 +81,8 @@ public class AppTest {
             testApp.key = PApplet.CODED;
             testApp.keyCode = arrowKeyCodes[i];
             testApp.keyPressed();
-            assertEquals(testApp.player.getGridX(), expectedGridX[i]);
-            assertEquals(testApp.player.getGridY(), expectedGridY[i]);
+            assertEquals(expectedGridX[i], testApp.player.getGridX());
+            assertEquals(expectedGridY[i], testApp.player.getGridY());
         }
 
         // Test space key to bomb placement.

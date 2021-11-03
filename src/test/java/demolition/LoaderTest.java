@@ -18,15 +18,15 @@ public class LoaderTest {
     @Test
     public void loadLevelInvalidTest() {
         App testApp = AppTest.testApp(invalidConfigPath);
-        assertEquals(testApp.screen, App.Screen.ERROR);
+        assertEquals(App.Screen.ERROR, testApp.screen);
     }
 
     @Test
     public void nextLevelTest() {
         App testApp = AppTest.testApp(multipleConfigPath);
         testApp.getLoader().nextLevel();
-        assertEquals(testApp.screen, App.Screen.GAME);
+        assertEquals(App.Screen.GAME, testApp.screen);
         testApp.getLoader().nextLevel();
-        assertEquals(testApp.screen, App.Screen.WIN);
+        assertEquals(App.Screen.WIN, testApp.screen);
     }
 }
