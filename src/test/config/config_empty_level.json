@@ -1,0 +1,9 @@
+{
+    "levels": [
+        {
+            "path": "src/test/config/empty.txt",
+            "time": 1
+        }
+    ],
+    "lives": 1
+}

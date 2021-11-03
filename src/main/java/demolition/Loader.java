@@ -24,22 +24,23 @@ public class Loader {
      * Path to the font file.
      */
     private static final String fontPath = resourcePath + "PressStart2P-Regular.ttf";
+
     /**
      * Path to the configuration file.
      */
-    private static final String configPath = "config.json";
+    private String configPath;
 
     /**
      * A hashmap from non-animated game object type name to its corresponding image
      * file.
      */
-    public HashMap<String, PImage> staticSprites = new HashMap<>();
+    private HashMap<String, PImage> staticSprites = new HashMap<>();
     /**
      * A hashmap from animated game object type name to its corresponding image
      * files. The first list dimension represents direction and the second
      * represents frame.
      */
-    public HashMap<String, List<List<PImage>>> animatedSprites = new HashMap<>();
+    private HashMap<String, List<List<PImage>>> animatedSprites = new HashMap<>();
 
     /**
      * Level configuration object. It includes player lives and the path and time
@@ -57,13 +58,9 @@ public class Loader {
      */
     private int levelCount;
 
-    /**
-     * Default constructor for loader.
-     *
-     * @param app reference to application object
-     */
-    Loader(App app) {
+    public Loader(App app, String configPath) {
         this.app = app;
+        this.configPath = configPath;
     }
 
     /**
@@ -216,7 +213,7 @@ public class Loader {
                 gridY++;
             }
         } catch (FileNotFoundException e) {
-            app.exit();
+            app.screen = App.Screen.ERROR;
         }
 
         app.setFrameLeft(levelObject.getInt("time") * App.FPS);

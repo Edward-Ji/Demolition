@@ -21,10 +21,14 @@ public class App extends PApplet {
          */
         WIN,
         /**
-         * Represents the game over screen, set after the player health or time left
+         * Represents the game over screen, set after the player health or time left.
          * reaches 0.
          */
-        LOST;
+        LOST,
+        /**
+         * Represents the error screen, when an exception is thrown.
+         */
+        ERROR;
     }
 
     /**
@@ -54,6 +58,11 @@ public class App extends PApplet {
     public static final int GRID_HEIGHT = 13;
 
     /**
+     * Default path to the configuration file.
+     */
+    private static final String defaultConfigPath = "config.json";
+
+    /**
      * Resource and configuration file loader.
      *
      * @see Loader
@@ -78,6 +87,28 @@ public class App extends PApplet {
      * @see Screen
      */
     public Screen screen = Screen.GAME;
+
+    /**
+     * Path to the configuration file.
+     */
+    private String configPath;
+
+    /**
+     * Default constructor for app.
+     */
+    public App() {
+        configPath = defaultConfigPath;
+    }
+
+    /**
+     * Construct app object with given configureation file path.
+     *
+     * @param configPath path to configuration file
+     * @deprecated this constructor is for testing only
+     */
+    App(String configPath) {
+        this.configPath = configPath;
+    }
 
     /**
      * Getter for resource and configuration file loader.
@@ -123,7 +154,7 @@ public class App extends PApplet {
         frameRate(FPS);
 
         // Load all resources and configurations.
-        loader = new Loader(this);
+        loader = new Loader(this, configPath);
         loader.loadFont();
         loader.loadResources();
         loader.loadConfig();
@@ -145,6 +176,9 @@ public class App extends PApplet {
             break;
         case WIN:
             textScreen("YOU WON");
+            break;
+        case ERROR:
+            textScreen("ERROR");
             break;
         }
         frameLeft--;

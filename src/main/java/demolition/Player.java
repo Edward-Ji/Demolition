@@ -1,5 +1,8 @@
 package demolition;
 
+/**
+ * User control instance of the this class to move and place bombs.
+ */
 public class Player extends AnimatedGameObject {
 
     /**
@@ -55,5 +58,4 @@ public class Player extends AnimatedGameObject {
         }
         new Bomb(app, gridX, gridY);
     }
-
 }

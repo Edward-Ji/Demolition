@@ -115,6 +115,24 @@ public abstract class GameObject {
     }
 
     /**
+     * Returns the number of colums from left in game grid (starting from 0).
+     *
+     * @return x position in grid
+     */
+    protected int getGridX() {
+        return gridX;
+    }
+
+    /**
+     * Returns the number of rows from top in game grid (starting from 0).
+     *
+     * @return y position in grid
+     */
+    protected int getGridY() {
+        return gridY;
+    }
+
+    /**
      * Returns if this game object blocks movement of other game objects. This is
      * readonly and defaults to <code>false</code>. Override this method to change
      * this attribute.

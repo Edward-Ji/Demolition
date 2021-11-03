@@ -18,7 +18,7 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -27,13 +27,17 @@ dependencies {
     implementation 'org.processing:core:3.3.7'
 
     // Use JUnit Jupiter API for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
 
-    // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+    // Uncomment this for JUnit 4
+    // testImplementation 'junit:junit:4.13.2'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 application {
     // Define the main class for the application
-    mainClassName = 'demolition.App'
+    mainClass = 'demolition.App'
 }
