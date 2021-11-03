@@ -13,7 +13,7 @@ public class Goal extends GameObject {
     @Override
     public void onCollide(GameObject other) {
         if (other == app.player) {
-            app.nextLevel();
+            app.getLoader().nextLevel();
         }
     }
 }

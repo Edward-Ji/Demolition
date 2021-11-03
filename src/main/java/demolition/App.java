@@ -23,7 +23,6 @@ public class App extends PApplet {
 
     // Game attributes
     private int lives;
-    private int levelCount;
     private int frameLeft;
 
     public Player player;
@@ -32,6 +31,14 @@ public class App extends PApplet {
 
     public Loader getLoader() {
         return loader;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void setFrameLeft(int frameLeft) {
+        this.frameLeft = frameLeft;
     }
 
     public void settings() {
@@ -47,8 +54,7 @@ public class App extends PApplet {
         loader.loadFont();
         loader.loadResources();
         loader.loadConfig();
-        lives = loader.getLives();
-        frameLeft = loader.loadLevel(levelCount) * FPS;
+        loader.loadLevel();
     }
 
     public void draw() {
@@ -74,7 +80,6 @@ public class App extends PApplet {
 
         GameObject.updateAll();
         drawUI();
-        drawField();
         GameObject.drawAll();
     }
 
@@ -87,11 +92,8 @@ public class App extends PApplet {
         text(lives, WIDTH * 1 / 4, UI_HEIGHT / 2);
         image(loader.getStaticSprite("clock_icon"), WIDTH / 2 + 30, UI_HEIGHT / 2);
         text(frameLeft / FPS, WIDTH * 3 / 4, UI_HEIGHT / 2);
-
         popStyle();
-    }
 
-    public void drawField() {
         for (int x = 0; x < WIDTH; x += GRID_SIZE) {
             for (int y = UI_HEIGHT; y < HEIGHT; y += GRID_SIZE) {
                 image(loader.getStaticSprite("field"), x, y);
@@ -99,18 +101,9 @@ public class App extends PApplet {
         }
     }
 
-    public void nextLevel() {
-        levelCount++;
-        if (levelCount < loader.getMaxLevel()) {
-            frameLeft = loader.loadLevel(levelCount) * FPS;
-        } else {
-            screen = Screen.WIN;
-        }
-    }
-
     public void loseOneLife() {
         lives--;
-        frameLeft = loader.loadLevel(levelCount) * FPS;
+        loader.loadLevel();
     }
 
     public void keyPressed() {

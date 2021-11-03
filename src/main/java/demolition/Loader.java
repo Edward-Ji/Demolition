@@ -27,6 +27,8 @@ public class Loader {
 
     private App app;
 
+    private int levelCount;
+
     Loader(App app) {
         this.app = app;
     }
@@ -72,17 +74,10 @@ public class Loader {
 
     public void loadConfig() {
         config = app.loadJSONObject(configPath);
+        app.setLives(config.getInt("lives"));
     }
 
-    public int getLives() {
-        return config.getInt("lives");
-    }
-
-    public int getMaxLevel() {
-        return config.getJSONArray("levels").size();
-    }
-
-    public int loadLevel(int levelCount) {
+    public void loadLevel() {
         JSONArray levelArray = (JSONArray) config.get("levels");
 
         GameObject.clearAll();
@@ -123,10 +118,17 @@ public class Loader {
             }
         } catch (FileNotFoundException e) {
             app.exit();
-            return -1;
         }
 
-        return levelObject.getInt("time");
+        app.setFrameLeft(levelObject.getInt("time") * App.FPS);
     }
 
+    public void nextLevel() {
+        levelCount++;
+        if (levelCount < config.getJSONArray("levels").size()) {
+            loadLevel();
+        } else {
+            app.screen = App.Screen.WIN;
+        }
+    }
 }
