@@ -46,4 +46,41 @@ public class Explosion extends GameObject {
             other.destroy();
         }
     }
+
+    /**
+     * Creates an explosion in all four directions. Non-breakable objects stop the
+     * explosion before them in that direction. Breakable objects stop the explosion
+     * at their position in that direction.
+     *
+     * @param app           reference to application
+     * @param gridX         x position of explosion centre in grid
+     * @param gridY         y position of explosion centre in grid
+     * @param blastDistance the radius of explosion
+     */
+    public static void explosionCentre(App app, int gridX, int gridY, int blastDistance) {
+        new Explosion(app, app.getLoader().getStaticSprite("explosion_centre"), gridX, gridY);
+        direction: for (Direction direction : Direction.values()) {
+            PImage sprite;
+            if (direction.getDeltaX() == 0) {
+                sprite = app.getLoader().getStaticSprite("explosion_vertical");
+            } else {
+                sprite = app.getLoader().getStaticSprite("explosion_horizontal");
+            }
+            for (int dist = 1; dist <= blastDistance; dist++) {
+                int newGridX = gridX + direction.getDeltaX() * dist;
+                int newGridY = gridY + direction.getDeltaY() * dist;
+                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
+                    if (!gameObject.isBreakable()) {
+                        continue direction;
+                    }
+                }
+                new Explosion(app, sprite, newGridX, newGridY);
+                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
+                    if (gameObject.blocksMovement()) {
+                        continue direction;
+                    }
+                }
+            }
+        }
+    }
 }

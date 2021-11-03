@@ -96,7 +96,7 @@ public class AppTest {
         GameObject.updateAll();
         assertFalse(GameObject.atPos(1, 1).isEmpty());
 
-        // Test press other key.
+        // Test press undefined key does nothing.
         testApp.key = 'x';
         testApp.keyCode = 'x';
         testApp.keyPressed();
