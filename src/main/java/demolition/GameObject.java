@@ -8,9 +8,14 @@ import processing.core.PImage;
 public class GameObject {
 
     public static enum Layer {
-        BACKGROUND, // Wall, Goal
-        DEFAULT, // Enemy, Bomb
-        FOREGROUND; // Player, Explosion
+        /** Wall, Goal, Bomb */
+        BACKGROUND,
+
+        /** Enemy, Explosion */
+        DEFAULT,
+
+        /** Player */
+        PLAYER,
     }
 
     private static List<GameObject> allGameObjects = new LinkedList<>();

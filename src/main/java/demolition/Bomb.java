@@ -9,7 +9,7 @@ public class Bomb extends AnimatedGameObject {
     private int countdown = 2 * App.FPS;
 
     public Bomb(App app, int gridX, int gridY) {
-        super(app, app.getLoader().getAnimatedSprite("bomb"), gridX, gridY);
+        super(app, app.getLoader().getAnimatedSprite("bomb"), gridX, gridY, Layer.BACKGROUND);
         setFrameInterval((int) (0.25 * App.FPS));
     }
 

@@ -5,7 +5,7 @@ public class Player extends AnimatedGameObject {
     static final int layer = 0;
 
     public Player(App app, int gridX, int gridY) {
-        super(app, app.getLoader().getAnimatedSprite("player"), gridX, gridY, Layer.FOREGROUND);
+        super(app, app.getLoader().getAnimatedSprite("player"), gridX, gridY, Layer.PLAYER);
     }
 
     @Override
