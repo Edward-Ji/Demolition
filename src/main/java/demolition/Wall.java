@@ -2,7 +2,7 @@ package demolition;
 
 import processing.core.PImage;
 
-public class Wall extends GameObject {
+public abstract class Wall extends GameObject {
 
     public Wall(App app, PImage sprite, int gridX, int gridY) {
         super(app, sprite, gridX, gridY, Layer.BACKGROUND);
@@ -27,7 +27,8 @@ public class Wall extends GameObject {
     }
 
     public static Wall solidWall(App app, int gridX, int gridY) {
-        return new Wall(app, app.getLoader().getStaticSprite("solid_wall"), gridX, gridY);
+        return new Wall(app, app.getLoader().getStaticSprite("solid_wall"), gridX, gridY) {
+        };
     }
 
 }

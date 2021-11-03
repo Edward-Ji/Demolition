@@ -3,7 +3,7 @@ package demolition;
 import java.util.List;
 import processing.core.PImage;
 
-public class Enemy extends AnimatedGameObject {
+public abstract class Enemy extends AnimatedGameObject {
 
     private static final int moveInterval = App.FPS;
 
@@ -22,7 +22,7 @@ public class Enemy extends AnimatedGameObject {
     public void update() {
         if (moveFrameCount == moveInterval) {
             while (movementBlocked()) {
-                turn(getDirection().next());
+                turn(chooseDirection());
             }
             move();
             moveFrameCount = 0;
@@ -30,6 +30,8 @@ public class Enemy extends AnimatedGameObject {
 
         moveFrameCount++;
     }
+
+    protected abstract Direction chooseDirection();
 
     @Override
     public void onCollide(GameObject other) {
@@ -39,10 +41,18 @@ public class Enemy extends AnimatedGameObject {
     }
 
     public static Enemy redEnemy(App app, int gridX, int gridY) {
-        return new Enemy(app, app.getLoader().getAnimatedSprite("red_enemy"), gridX, gridY);
+        return new Enemy(app, app.getLoader().getAnimatedSprite("red_enemy"), gridX, gridY) {
+            protected Direction chooseDirection() {
+                return Direction.next(getDirection());
+            }
+        };
     }
 
     public static Enemy yellowEnemy(App app, int gridX, int gridY) {
-        return new Enemy(app, app.getLoader().getAnimatedSprite("yellow_enemy"), gridX, gridY);
+        return new Enemy(app, app.getLoader().getAnimatedSprite("yellow_enemy"), gridX, gridY) {
+            protected Direction chooseDirection() {
+                return Direction.random();
+            }
+        };
     }
 }

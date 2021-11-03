@@ -19,10 +19,9 @@ public class Player extends AnimatedGameObject {
     }
 
     public void control(Direction newDirection) {
-        Direction oldDirection = getDirection();
-        turn(newDirection);
-        if (!move()) {
-            turn(oldDirection);
+        if (!movementBlocked(newDirection)) {
+            turn(newDirection);
+            move();
         }
     }
 

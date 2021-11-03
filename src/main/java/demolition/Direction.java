@@ -1,8 +1,12 @@
 package demolition;
 
+import java.util.Random;
+
 public enum Direction {
 
     DOWN(0, 1, 0), LEFT(-1, 0, 1), UP(0, -1, 3), RIGHT(1, 0, 2);
+
+    private static Random random = new Random();
 
     private int deltaX;
     private int deltaY;
@@ -26,8 +30,12 @@ public enum Direction {
         return alphabetOrder;
     }
 
-    public Direction next() {
-        return values()[(this.ordinal() + 1) % values().length];
+    public static Direction next(Direction direction) {
+        return values()[(direction.ordinal() + 1) % values().length];
+    }
+
+    public static Direction random() {
+        return values()[random.nextInt(values().length)];
     }
 
 }

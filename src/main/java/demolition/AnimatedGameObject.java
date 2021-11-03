@@ -52,6 +52,10 @@ public abstract class AnimatedGameObject extends GameObject {
     }
 
     protected boolean movementBlocked() {
+        return movementBlocked(direction);
+    }
+
+    protected boolean movementBlocked(Direction direction) {
         int newGridX = gridX + direction.getDeltaX();
         int newGridY = gridY + direction.getDeltaY();
 
@@ -68,9 +72,9 @@ public abstract class AnimatedGameObject extends GameObject {
         return false;
     }
 
-    protected boolean move() {
+    protected void move() {
         if (movementBlocked()) {
-            return false;
+            return;
         }
 
         int newGridX = gridX + direction.getDeltaX();
@@ -78,7 +82,5 @@ public abstract class AnimatedGameObject extends GameObject {
 
         gridX = newGridX;
         gridY = newGridY;
-
-        return true;
     }
 }
