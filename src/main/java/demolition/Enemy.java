@@ -81,7 +81,7 @@ public abstract class Enemy extends AnimatedGameObject {
     public static Enemy redEnemy(App app, int gridX, int gridY) {
         return new Enemy(app, app.getLoader().getAnimatedSprite("red_enemy"), gridX, gridY) {
             protected Direction chooseDirection() {
-                return Direction.next(getDirection());
+                return Direction.random();
             }
         };
     }
@@ -97,7 +97,7 @@ public abstract class Enemy extends AnimatedGameObject {
     public static Enemy yellowEnemy(App app, int gridX, int gridY) {
         return new Enemy(app, app.getLoader().getAnimatedSprite("yellow_enemy"), gridX, gridY) {
             protected Direction chooseDirection() {
-                return Direction.random();
+                return Direction.next(getDirection());
             }
         };
     }
