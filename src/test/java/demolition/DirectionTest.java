@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DirectionTest {
 
+    // Test the existance and validity four objects of direction enum.
     @Test
     public void constructorTest() {
         Direction up = Direction.UP;
@@ -18,6 +19,7 @@ public class DirectionTest {
         assertNotNull(right);
     }
 
+    // Test the helper getter methods of direction enums.
     @Test
     public void getterTest() {
         Direction up = Direction.UP;
@@ -27,6 +29,7 @@ public class DirectionTest {
         assertEquals(3, up.getAlphabetOrder());
     }
 
+    // Test the next can correctly calculate the next direction clockwise.
     @Test
     public void nextDirectionTest() {
         assertEquals(Direction.LEFT, Direction.next(Direction.DOWN));

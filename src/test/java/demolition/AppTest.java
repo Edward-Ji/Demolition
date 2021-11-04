@@ -28,12 +28,14 @@ public class AppTest {
         return app;
     }
 
+    // Test app loader is a valid and functional loader object.
     @Test
     public void getLoaderTest() {
         App testApp = testApp();
         assertNotNull(testApp.getLoader());
     }
 
+    // Test switching screens and render.
     @Test
     public void screenTest() {
         App testApp = testApp();
@@ -43,6 +45,7 @@ public class AppTest {
         testApp.draw();
     }
 
+    // Test lost by reaching zero lives.
     @Test
     public void loseByLivesTest() {
         App testApp = testApp();
@@ -52,6 +55,7 @@ public class AppTest {
         assertEquals(App.Screen.LOST, testApp.screen);
     }
 
+    // Test lost by reaching zero seconds.
     @Test
     public void loseByTimerTest() {
         App testApp = testApp();
@@ -68,6 +72,7 @@ public class AppTest {
         assert lost;
     }
 
+    // Test key press provokes player movement and bomb placement.
     @Test
     public void keyPressedTest() {
         App testApp = testApp();

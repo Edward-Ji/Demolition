@@ -3,14 +3,11 @@ package demolition;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
- * Both solid and borken wall should blocks movement, but only broken wall is
- * breakable.
- */
 public class WallTest {
 
     App testApp = AppTest.testApp();
 
+    // Test the blocking movement attribtue. Both types of wall blocks movement.
     @Test
     public void blocksMovementTest() {
         Wall solidWall = Wall.solidWall(testApp, 1, 1);
@@ -20,6 +17,8 @@ public class WallTest {
         assertTrue(brokenWall.blocksMovement());
     }
 
+    // Test the breakable attribute. Solid wall can not be broken, while broken wall
+    // can be destroyed by bombs.
     @Test
     public void isBreakableTest() {
         Wall solidWall = Wall.solidWall(testApp, 1, 1);
