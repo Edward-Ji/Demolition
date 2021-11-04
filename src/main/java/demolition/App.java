@@ -208,7 +208,7 @@ public class App extends PApplet {
      * and render them.
      */
     private void gameScreen() {
-        if (frameLeft == 0 || lives == 0) { // Check losing condition
+        if (frameLeft == 0) { // Check losing condition
             screen = Screen.LOST;
         }
 
@@ -240,7 +240,12 @@ public class App extends PApplet {
      */
     public void loseOneLife() {
         lives--;
-        loader.loadLevel();
+        System.out.println(lives);
+        if (lives == 0) {
+            screen = Screen.LOST;
+        } else {
+            loader.loadLevel();
+        }
     }
 
     /**
