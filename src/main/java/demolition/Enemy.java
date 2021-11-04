@@ -1,6 +1,8 @@
 package demolition;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import processing.core.PImage;
 
 /**
@@ -9,6 +11,11 @@ import processing.core.PImage;
  * methods to create Enemy object.
  */
 public abstract class Enemy extends AnimatedGameObject {
+
+    /**
+     * A random number generator object.
+     */
+    private static Random random = new Random();
 
     /**
      * The number of game frames between two consecutive enemy movements.
@@ -40,7 +47,7 @@ public abstract class Enemy extends AnimatedGameObject {
     @Override
     public void update() {
         if (moveFrameCount == moveInterval) {
-            while (movementBlocked()) {
+            if (movementBlocked()) {
                 turn(chooseDirection());
             }
             move();
@@ -81,7 +88,17 @@ public abstract class Enemy extends AnimatedGameObject {
     public static Enemy redEnemy(App app, int gridX, int gridY) {
         return new Enemy(app, app.getLoader().getAnimatedSprite("red_enemy"), gridX, gridY) {
             protected Direction chooseDirection() {
-                return Direction.random();
+                List<Direction> unblockedDirections = new ArrayList<>();
+                for (Direction direction : Direction.values()) {
+                    if (!movementBlocked(direction)) {
+                        unblockedDirections.add(direction);
+                    }
+                }
+
+                if (unblockedDirections.isEmpty()) {
+                    return getDirection();
+                }
+                return unblockedDirections.get(random.nextInt(unblockedDirections.size()));
             }
         };
     }
@@ -97,7 +114,11 @@ public abstract class Enemy extends AnimatedGameObject {
     public static Enemy yellowEnemy(App app, int gridX, int gridY) {
         return new Enemy(app, app.getLoader().getAnimatedSprite("yellow_enemy"), gridX, gridY) {
             protected Direction chooseDirection() {
-                return Direction.next(getDirection());
+                Direction newDirection = Direction.next(getDirection());
+                while (movementBlocked(newDirection) && newDirection != getDirection()) {
+                    newDirection = Direction.next(newDirection);
+                }
+                return newDirection;
             }
         };
     }

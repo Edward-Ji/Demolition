@@ -37,6 +37,9 @@ public class DirectionTest {
 
     @Test
     public void randomDirectionTest() {
-        assertNotNull(Direction.random());
+        assertNotEquals(Direction.UP, Direction.random(Direction.UP));
+        assertNotEquals(Direction.DOWN, Direction.random(Direction.DOWN));
+        assertNotEquals(Direction.LEFT, Direction.random(Direction.LEFT));
+        assertNotEquals(Direction.RIGHT, Direction.random(Direction.RIGHT));
     }
 }

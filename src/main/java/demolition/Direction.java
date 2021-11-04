@@ -1,7 +1,5 @@
 package demolition;
 
-import java.util.Random;
-
 /**
  * Represents directions. This class also includes some helper functions for
  * generating directions and calculating movement positions.
@@ -12,11 +10,6 @@ public enum Direction {
      * The four valid directions.
      */
     DOWN(0, 1, 0), LEFT(-1, 0, 1), UP(0, -1, 3), RIGHT(1, 0, 2);
-
-    /**
-     * A random number generator object.
-     */
-    private static Random random = new Random();
 
     /**
      * Delta in x position if an object moves in this direction.
@@ -82,14 +75,4 @@ public enum Direction {
     public static Direction next(Direction direction) {
         return values()[(direction.ordinal() + 1) % values().length];
     }
-
-    /**
-     * Returns a random direction. Used by the red enemy.
-     *
-     * @return a random direction
-     */
-    public static Direction random() {
-        return values()[random.nextInt(values().length)];
-    }
-
 }
