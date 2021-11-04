@@ -58,6 +58,11 @@ public abstract class GameObject {
     private Layer layer;
 
     /**
+     * Indicates if the game object is destroyed.
+     */
+    private boolean destroyed;
+
+    /**
      * Constructs a game object in default layer and tracks it.
      *
      * @param app    reference to application
@@ -95,6 +100,14 @@ public abstract class GameObject {
      */
     public void destroy() {
         app.getManager().del(this);
+        destroyed = true;
+    }
+
+    /**
+     * Getter for if the game object is marked as destoryed.
+     */
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
     /**

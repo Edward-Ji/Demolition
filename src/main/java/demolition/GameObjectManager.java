@@ -48,6 +48,18 @@ public class GameObjectManager {
     }
 
     /**
+     * Add or remove according to the pending game object lists.
+     */
+    public void updateGameObjectList() {
+        allGameObjects.addAll(addGameObjects);
+        addGameObjects.clear();
+        allGameObjects.removeAll(delGameObjects);
+        delGameObjects.clear();
+        while (allGameObjects.remove(null))
+            ;
+    }
+
+    /**
      * Checks for object collision, calls both objects' {@link GameObject#onCollide}
      * for every collision. The method then calls each game object's
      * {@link GameObject#update} method. Lastly, the method updates the game object
@@ -73,11 +85,7 @@ public class GameObjectManager {
             gameObject.update();
         }
 
-        // Maintain game object list
-        allGameObjects.addAll(addGameObjects);
-        addGameObjects.clear();
-        allGameObjects.removeAll(delGameObjects);
-        delGameObjects.clear();
+        updateGameObjectList();
     }
 
     /**
