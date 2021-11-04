@@ -44,10 +44,14 @@ public class PlayerTest {
         // Can place bomb freely
         testApp.player.placeBomb();
         testApp.draw();
+        testApp.draw();
+        testApp.draw();
         assertEquals(2, testApp.getManager().atPos(1, 1).size());
 
         // Can not stack bomb
         testApp.player.placeBomb();
+        testApp.draw();
+        testApp.draw();
         testApp.draw();
         assertEquals(2, testApp.getManager().atPos(1, 1).size());
     }
