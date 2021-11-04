@@ -51,7 +51,7 @@ public class Player extends AnimatedGameObject {
      * Controls the player to place a bomb in the game grid.
      */
     public void placeBomb() {
-        for (GameObject gameObject : GameObject.atPos(gridX, gridY)) {
+        for (GameObject gameObject : app.getManager().atPos(gridX, gridY)) {
             if (gameObject instanceof Bomb) {
                 return;
             }

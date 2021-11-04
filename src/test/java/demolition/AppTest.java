@@ -22,9 +22,6 @@ public class AppTest {
         app.noLoop();
         PApplet.runSketch(new String[] { "TestApp" }, app);
         app.setup();
-        app.delay(1000);
-
-        GameObject.clearAll();
 
         return app;
     }
@@ -93,8 +90,8 @@ public class AppTest {
         testApp.keyCode = PApplet.RIGHT;
         testApp.keyPressed();
 
-        GameObject.updateAll();
-        assertFalse(GameObject.atPos(1, 1).isEmpty());
+        testApp.draw();
+        assertFalse(testApp.getManager().atPos(1, 1).isEmpty());
 
         // Test press undefined key does nothing.
         testApp.key = 'x';

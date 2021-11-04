@@ -142,11 +142,11 @@ public abstract class AnimatedGameObject extends GameObject {
         int newGridX = gridX + direction.getDeltaX();
         int newGridY = gridY + direction.getDeltaY();
 
-        if (!GameObject.inField(newGridX, newGridY)) {
+        if (!app.getManager().inField(newGridX, newGridY)) {
             return true;
         }
 
-        for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
+        for (GameObject gameObject : app.getManager().atPos(newGridX, newGridY)) {
             if (gameObject.blocksMovement()) {
                 return true;
             }

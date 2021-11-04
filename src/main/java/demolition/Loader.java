@@ -176,7 +176,7 @@ public class Loader {
     public void loadLevel() {
         JSONArray levelArray = (JSONArray) config.get("levels");
 
-        GameObject.clearAll();
+        app.getManager().clearAll();
 
         JSONObject levelObject = (JSONObject) levelArray.getJSONObject(levelCount);
         String levelPath = levelObject.getString("path");

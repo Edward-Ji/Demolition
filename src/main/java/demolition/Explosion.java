@@ -69,13 +69,13 @@ public class Explosion extends GameObject {
             for (int dist = 1; dist <= blastDistance; dist++) {
                 int newGridX = gridX + direction.getDeltaX() * dist;
                 int newGridY = gridY + direction.getDeltaY() * dist;
-                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
+                for (GameObject gameObject : app.getManager().atPos(newGridX, newGridY)) {
                     if (!gameObject.isBreakable()) {
                         continue direction;
                     }
                 }
                 new Explosion(app, sprite, newGridX, newGridY);
-                for (GameObject gameObject : GameObject.atPos(newGridX, newGridY)) {
+                for (GameObject gameObject : app.getManager().atPos(newGridX, newGridY)) {
                     if (gameObject.blocksMovement()) {
                         continue direction;
                     }

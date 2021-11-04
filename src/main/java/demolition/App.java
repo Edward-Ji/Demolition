@@ -70,6 +70,13 @@ public class App extends PApplet {
     private Loader loader;
 
     /**
+     * Resource and configuration file loader.
+     *
+     * @see Loader
+     */
+    private GameObjectManager manager;
+
+    /**
      * How many lives do the player have.
      */
     private int lives;
@@ -120,6 +127,15 @@ public class App extends PApplet {
     }
 
     /**
+     * Getter for game object manager.
+     *
+     * @return resource and configuration file loader
+     */
+    public GameObjectManager getManager() {
+        return manager;
+    }
+
+    /**
      * Setter for the number of lives the player have at the start.
      *
      * @param lives the number of lives the player have at the start
@@ -152,6 +168,9 @@ public class App extends PApplet {
     public void setup() {
         // Set frame per second.
         frameRate(FPS);
+
+        // Start game object manage
+        manager = new GameObjectManager();
 
         // Load all resources and configurations.
         loader = new Loader(this, configPath);
@@ -194,7 +213,7 @@ public class App extends PApplet {
         }
 
         // Update all game object
-        GameObject.updateAll();
+        manager.updateAll();
 
         // Draw user interface elements
         pushStyle();
@@ -213,7 +232,7 @@ public class App extends PApplet {
             }
         }
         // Draw all game objects
-        GameObject.drawAll();
+        manager.drawAll();
     }
 
     /**
