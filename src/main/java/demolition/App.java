@@ -278,7 +278,7 @@ public class App extends PApplet {
      *
      * @param text the text to be displayed in the middle.
      */
-    public void textScreen(String text) {
+    private void textScreen(String text) {
         background(254, 134, 0);
         textAlign(CENTER, CENTER);
         text(text, WIDTH / 2, HEIGHT / 2);
