@@ -70,7 +70,7 @@ public class Explosion extends GameObject {
                 int newGridX = gridX + direction.getDeltaX() * dist;
                 int newGridY = gridY + direction.getDeltaY() * dist;
                 for (GameObject gameObject : app.getManager().atPos(newGridX, newGridY)) {
-                    if (!gameObject.isBreakable()) {
+                    if (!gameObject.isBreakable() && gameObject.blocksMovement()) {
                         continue direction;
                     }
                 }

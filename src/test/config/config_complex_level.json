@@ -2,7 +2,7 @@
     "levels": [
         {
             "path": "src/test/config/complex.txt",
-            "time": 1
+            "time": 180
         }
     ],
     "lives": 1
