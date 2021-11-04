@@ -105,6 +105,8 @@ public abstract class GameObject {
 
     /**
      * Getter for if the game object is marked as destroyed.
+     *
+     * @return if the game object is marked as destroyed.
      */
     public boolean isDestroyed() {
         return destroyed;
