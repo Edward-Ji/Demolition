@@ -104,7 +104,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Getter for if the game object is marked as destoryed.
+     * Getter for if the game object is marked as destroyed.
      */
     public boolean isDestroyed() {
         return destroyed;
@@ -161,7 +161,7 @@ public abstract class GameObject {
 
     /**
      * Called in the update stage of the event loop. Override this method for object
-     * logic (e.g. timed destory or movement).
+     * logic (e.g. timed destroy or movement).
      */
     protected void update() {
     }

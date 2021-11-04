@@ -38,7 +38,7 @@ public class Bomb extends AnimatedGameObject {
     }
 
     /**
-     * A bomb destorys itself after the countdown reaches 0.
+     * A bomb destroys itself after the countdown reaches 0.
      */
     @Override
     public void update() {

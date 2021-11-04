@@ -27,7 +27,7 @@ public class Player extends AnimatedGameObject {
     }
 
     /**
-     * The player loses one life when destoyed.
+     * The player loses one life when destroyed.
      */
     @Override
     public void destroy() {

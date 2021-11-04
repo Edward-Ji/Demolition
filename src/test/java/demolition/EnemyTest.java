@@ -7,7 +7,7 @@ public class EnemyTest {
 
     private static final String configPath = "src/test/config/config_enemy_level.json";
 
-    // Test that enemy objects can be destoryed by explosions.
+    // Test that enemy objects can be destroyed by explosions.
     @Test
     public void isBreakableTest() {
         App testApp = AppTest.testApp(configPath);

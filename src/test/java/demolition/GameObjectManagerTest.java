@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameObjectManagerTest {
 
-    // Test that enemy objects can be destoryed by explosions.
+    // Test that enemy objects can be destroyed by explosions.
     @Test
     public void inFieldTest() {
         GameObjectManager manager = new GameObjectManager();
