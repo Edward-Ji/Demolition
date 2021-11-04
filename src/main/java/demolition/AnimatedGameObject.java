@@ -36,10 +36,6 @@ public abstract class AnimatedGameObject extends GameObject {
      */
     private int frameCount;
 
-    private AnimatedGameObject(App app, PImage sprite, int gridX, int gridY) {
-        super(app, sprite, gridX, gridY);
-    }
-
     private AnimatedGameObject(App app, PImage sprite, int gridX, int gridY, Layer layer) {
         super(app, sprite, gridX, gridY, layer);
     }
