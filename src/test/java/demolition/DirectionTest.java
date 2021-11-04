@@ -34,12 +34,4 @@ public class DirectionTest {
         assertEquals(Direction.RIGHT, Direction.next(Direction.UP));
         assertEquals(Direction.DOWN, Direction.next(Direction.RIGHT));
     }
-
-    @Test
-    public void randomDirectionTest() {
-        assertNotEquals(Direction.UP, Direction.random(Direction.UP));
-        assertNotEquals(Direction.DOWN, Direction.random(Direction.DOWN));
-        assertNotEquals(Direction.LEFT, Direction.random(Direction.LEFT));
-        assertNotEquals(Direction.RIGHT, Direction.random(Direction.RIGHT));
-    }
 }

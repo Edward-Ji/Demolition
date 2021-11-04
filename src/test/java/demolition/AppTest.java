@@ -23,6 +23,8 @@ public class AppTest {
         PApplet.runSketch(new String[] { "TestApp" }, app);
         app.setup();
 
+        app.delay(100);
+
         return app;
     }
 
