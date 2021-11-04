@@ -61,8 +61,9 @@ public class EnemyTest {
         Enemy.redEnemy(testApp, 1, 1);
         Enemy.redEnemy(testApp, 12, 12);
 
-        testApp.draw();
-        testApp.draw();
+        testApp.draw(); // Update game objects.
+        testApp.draw(); // Handles gamme objects collision.
+        testApp.draw(); // Update app screen.
 
         assertEquals(App.Screen.LOST, testApp.screen);
     }
