@@ -240,7 +240,6 @@ public class App extends PApplet {
      */
     public void loseOneLife() {
         lives--;
-        System.out.println(lives);
         if (lives == 0) {
             screen = Screen.LOST;
         } else {
