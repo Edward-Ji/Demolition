@@ -75,7 +75,7 @@ public class Loader {
      * must contain static (non-animated) sprites in the first level, together with
      * the direcotry that contains all animated sprites. The animated sprites are
      * put into directories according to their directions. If a sprite has only one
-     * direction, it still need to be put into a direcoty. The animated sprites are
+     * direction, it still need to be put into a directory. The animated sprites are
      * loaded in alphabetical order.
      *
      * <br>
@@ -162,8 +162,8 @@ public class Loader {
     /**
      * Loads the current game level. This method reads the game level file and
      * create relevant game objects with their position in the level file. If the
-     * file is invalid, the application exits. The characters representation is as
-     * follows:
+     * file is invalid, the application goes to error screen. The characters
+     * representation is as follows:
      * <ul>
      * <li>B - broken wall</li>
      * <li>G - goal</li>

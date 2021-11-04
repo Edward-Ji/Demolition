@@ -72,7 +72,7 @@ public class App extends PApplet {
     /**
      * Resource and configuration file loader.
      *
-     * @see Loader
+     * @see GameObjectManager
      */
     private GameObjectManager manager;
 
@@ -129,7 +129,7 @@ public class App extends PApplet {
     /**
      * Getter for game object manager.
      *
-     * @return resource and configuration file loader
+     * @return game object manager object
      */
     public GameObjectManager getManager() {
         return manager;
@@ -154,7 +154,7 @@ public class App extends PApplet {
     }
 
     /**
-     * Set window width.
+     * Set window dimensions.
      */
     @Override
     public void settings() {
