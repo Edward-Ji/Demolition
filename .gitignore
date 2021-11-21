@@ -1,6 +1,6 @@
 # Ignore all dot files
 .**
-!.gitignore
+!.git**
 
 # Ignore binary files and builds
 bin/*
