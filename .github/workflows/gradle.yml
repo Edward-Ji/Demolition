@@ -12,12 +12,17 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-    - name: Build
+    - name: Disable Graphics
       run: |
-        chmod +x build.sh
-        sudo ./build.sh
+        sudo lspci -tvvv
+        sudo bash -c "echo 1 > /sys/devices/pci0000:00/0000:00:08.0/remove"
+        sudo bash -c "echo 1 > /sys/devices/pci0000:00/0000:00:07.3/remove"
+        sudo bash -c "echo 1 > /sys/devices/pci0000:00/0000:00:07.1/remove"
+        sudo bash -c "echo 1 > /sys/devices/pci0000:00/0000:00:07.0/remove"
+        sudo bash -c "echo 1 > /sys/devices/pci0000:00/0000:00:00.0/remove"
+        sudo lspci -tvvv
+    - name: Build
+      run: docker build .
