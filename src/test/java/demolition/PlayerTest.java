@@ -34,25 +34,4 @@ public class PlayerTest {
         assertEquals(1, testApp.player.getGridY());
         assertEquals(Direction.DOWN, testApp.player.getDirection());
     }
-
-    // Player can place infinite number of bombs, but they are non-stackable.
-    @Test
-    public void placeBombTest() {
-        App testApp = AppTest.testApp();
-        testApp.draw(); // Update game object list.
-
-        // Can place bomb freely
-        testApp.player.placeBomb();
-        testApp.draw();
-        testApp.draw();
-        testApp.draw();
-        assertEquals(2, testApp.getManager().atPos(1, 1).size());
-
-        // Can not stack bomb
-        testApp.player.placeBomb();
-        testApp.draw();
-        testApp.draw();
-        testApp.draw();
-        assertEquals(2, testApp.getManager().atPos(1, 1).size());
-    }
 }
