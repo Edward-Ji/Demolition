@@ -111,7 +111,8 @@ public class App extends PApplet {
      * Construct app object with given configureation file path.
      *
      * @param configPath path to configuration file
-     * @deprecated this constructor is for testing only
+     * 
+     * <p style="color:red">This constructor is for testing only!<\p>
      */
     App(String configPath) {
         this.configPath = configPath;
